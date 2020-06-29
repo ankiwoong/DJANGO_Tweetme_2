@@ -2,9 +2,10 @@
    -> Creating
         -> Text
         -> Image -> Media Storage Server
-    -> Delete
-    -> Retweeting
-    -> Liking
+   -> User Pemissions
+        -> Delete
+        -> Retweeting
+        -> Liking
 
 2. Users
    -> Register
