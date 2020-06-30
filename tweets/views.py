@@ -6,16 +6,24 @@ from django.utils.http import is_safe_url
 
 from .forms import TweetForm
 from .models import Tweet
+from .serializers import TweetSerializer
 
 ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 # Create your views here.
 def home_view(request, *args, **kwargs):
-    # print(request.user or None)
     return render(request, "pages/home.html", context={}, status=200)
 
 
 def tweet_create_view(request, *args, **kwargs):
+    serializer = TweetSerializer(data=request.POST or None)
+    if serializer.is_valid():
+        obj = serializer.save(user=request.user)
+        return JsonResponse(serializer.data, status=201)
+    return JsonResponse({}, status=400)
+
+
+def tweet_create_view_pure_django(request, *args, **kwargs):
     """
     REST API Create View -> DRF
     """
@@ -30,7 +38,6 @@ def tweet_create_view(request, *args, **kwargs):
     if form.is_valid():
         obj = form.save(commit=False)
         # do other form related logic
-        # obj.user = request.user or None  # Annon User
         obj.user = user
         obj.save()
         if request.is_ajax():
@@ -75,3 +82,4 @@ def tweet_detail_view(request, tweet_id, *args, **kwargs):
     return JsonResponse(
         data, status=status
     )  # json.dumps content_type='application/json'
+
