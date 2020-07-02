@@ -6,7 +6,7 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
 
-class TweetLikes(models.Model):
+class TweetLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tweet = models.ForeignKey("Tweet", on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
