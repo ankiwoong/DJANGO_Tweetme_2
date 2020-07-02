@@ -1,9 +1,9 @@
 from django.contrib import admin
 
+# Register your models here.
 from .models import Tweet, TweetLike
 
 
-# Register your models here.
 class TweetLikeAdmin(admin.TabularInline):
     model = TweetLike
 
