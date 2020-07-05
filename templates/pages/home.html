@@ -4,7 +4,9 @@
 this is amazing!!!!
 {% endblock head_title%}
 
+
 {% block content %}
+
 <div class='row text-center'>
     <div class='col'>
         <h1>Welcome to Tweetme 2</h1>
@@ -86,6 +88,7 @@ this is amazing!!!!
             else if (xhr.status === 500) {
                 alert("There was a server error, please try again.")
             }
+
         }
         xhr.onerror = function () {
             alert("An error occurred. Please try again later.")
@@ -94,6 +97,7 @@ this is amazing!!!!
     }
     const tweetCreateFormEl = document.getElementById("tweet-create-form")
     tweetCreateFormEl.addEventListener("submit", handleTweetCreateFormDidSumbit)
+
 
     const tweetsContainerElement = document.getElementById("tweets")
 
@@ -121,8 +125,24 @@ this is amazing!!!!
 
     loadTweets(tweetsContainerElement)
 
+
     function handleDidLike(tweet_id, currentCount) {
         console.log(tweet_id, currentCount)
+        const url = "/api/tweets/action"
+        const method = "POST"
+        const data = JSON.stringify({
+            id: tweet_id,
+            action: "like"
+        })
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.setRequestHeader("Content-Type", "application/json")
+        xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+        xhr.onload = function () {
+            console.log(xhr.status, xhr.response)
+        }
+        xhr.send(data)
         return
     }
 
@@ -138,5 +158,8 @@ this is amazing!!!!
             "</div></div>"
         return formattedTweet
     }
+
+
+
 </script>
 {% endblock content %}
