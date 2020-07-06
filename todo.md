@@ -24,7 +24,25 @@
 
 3. Following / Followers
 
-Long term todos
-- Notifications
-- DM
-- Explore -> finding hashtags
+4. Long term todos
+   - Notifications
+   - DM
+   - Explore -> finding hashtags
+
+5. Comment
+   - Reply
+      - sub Reply
+      - sub Reply
+   - Reply
+   - Reply
+
+6. Tweet
+   - Retweet comment on the og tweet
+       - Retweet of Retweet
+
+7. Retweet of Retweet
+   - Retweet
+   - Tweet
+
+8. Tweet
+   - Retweet
