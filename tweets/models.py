@@ -31,6 +31,15 @@ class Tweet(models.Model):
     class Meta:
         ordering = ["-id"]
 
+    # admin page
+    def __str__(self):
+        # content = None -> 'None'
+        if self.content is None:
+            return "None"
+        # content = content -> 'content'
+        else:
+            return self.content
+
     @property
     def is_retweet(self):
         return self.parent != None
