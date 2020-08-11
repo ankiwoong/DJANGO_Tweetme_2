@@ -2,7 +2,6 @@ from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 
-
 User = settings.AUTH_USER_MODEL
 
 
@@ -26,7 +25,7 @@ class Profile(models.Model):
     """
 
 
-def user_did_save(sender, instance, created, *args, **kwqrgs):
+def user_did_save(sender, instance, created, *args, **kwargs):
     if created:
         Profile.objects.get_or_create(user=instance)
 
