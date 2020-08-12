@@ -16,14 +16,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from ..models import Profile
 
-
 User = get_user_model()
 ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
-
-# @api_view(["GET"])
+# @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
-# def user_follow_view(request, username, *args, **kwargs):
+# def user_profile_detail_view(request, username, *args, **kwargs):
 #     current_user = request.user
 #     to_follow_user = ??
 #     return Response({}, status=200)
@@ -34,8 +32,7 @@ ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 def user_follow_view(request, username, *args, **kwargs):
     me = request.user
     other_user_qs = User.objects.filter(username=username)
-    profile = Profile.objects.filter(user__username=username).first()
-    if other_user_qs.exists() == False:
+    if not other_user_qs.exists():
         return Response({}, status=404)
     other = other_user_qs.first()
     profile = other.profile
