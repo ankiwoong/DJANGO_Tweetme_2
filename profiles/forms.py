@@ -31,4 +31,3 @@ class ProfileBasicForm(forms.Form):
     email_address = forms.CharField(required=False)
     location = forms.CharField(required=False)
     bio = forms.CharField(required=False)
-
