@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 # Create your tests here.
-from django.contrib.auth import get_user, get_user_model
+from django.contrib.auth import get_user_model
 from .models import Profile
 
 
@@ -22,13 +22,13 @@ class ProfileTestCase(TestCase):
     def test_following(self):
         first = self.user
         second = self.userb
-        first.profile.followers.add(second)  # added a follwer
+        first.profile.followers.add(second)  # added a follower
         second_user_following_whom = second.following.all()
         qs = second_user_following_whom.filter(
             user=first
         )  # from a user, check other user is being followed.
-        self.assertTrue(qs.exists())
         first_user_following_no_one = (
             first.following.all()
         )  # check new user has is not following anyone
+        self.assertTrue(qs.exists())
         self.assertFalse(first_user_following_no_one.exists())
