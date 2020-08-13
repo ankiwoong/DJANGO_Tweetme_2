@@ -12,6 +12,7 @@ from rest_framework.decorators import (
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 from ..forms import TweetForm
 from ..models import Tweet
 from ..serializers import TweetSerializer, TweetActionSerializer, TweetCreateSerializer
@@ -86,6 +87,20 @@ def tweet_action_view(request, *args, **kwargs):
             serializer = TweetSerializer(new_tweet)
             return Response(serializer.data, status=201)
     return Response({}, status=200)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def tweet_feed_view(request, *args, **kwargs):
+    user = request.user
+    profiles = user.following.all()
+    followed_users_id = []
+    if profiles.exists():
+        followed_users_id = [x.user.id for x in profiles]
+    followed_users_id.append(user.id)
+    qs = Tweet.objects.filter(user__id__in=followed_users_id).order_by("-timestamp")
+    serializer = TweetSerializer(qs, many=True)
+    return Response(serializer.data, status=200)
 
 
 @api_view(["GET"])
